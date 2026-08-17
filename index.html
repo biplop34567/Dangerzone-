@@ -12,22 +12,25 @@ font-family:Arial,sans-serif;
 background:#080812;
 color:white;
 min-height:100vh;
+padding-bottom:80px
 }
 header{
 padding:18px 22px;
 background:linear-gradient(135deg,#15152b,#241044);
 border-bottom:1px solid #333;
 font-size:25px;
-font-weight:bold;
+font-weight:bold
 }
 header span{color:#9b4dff}
+
 .hero{
 text-align:center;
 padding:55px 20px 35px;
-background:radial-gradient(circle at top,#35105c,#080812 60%);
+background:radial-gradient(circle at top,#35105c,#080812 60%)
 }
 .hero h1{font-size:38px;margin-bottom:15px}
 .hero p{color:#aaa;font-size:18px;margin-bottom:28px}
+
 button{
 border:0;
 border-radius:10px;
@@ -36,50 +39,86 @@ font-size:16px;
 font-weight:bold;
 background:linear-gradient(90deg,#8b3dff,#b44cff);
 color:white;
+cursor:pointer
 }
-section{padding:25px}
-h2{font-size:27px;margin-bottom:18px}
-.card{
+
+.section{padding:20px}
+.section h2{margin-bottom:15px}
+
+.tournament{
 background:#12121f;
 border:1px solid #292943;
-border-radius:16px;
-padding:20px;
-margin-bottom:18px;
+border-radius:15px;
+padding:17px;
+margin-bottom:15px
 }
-.card h3{font-size:21px;margin-bottom:12px}
+.tournament h3{margin-bottom:12px}
 .info{
 display:flex;
 justify-content:space-between;
 color:#aaa;
-margin-bottom:18px;
+margin-bottom:20px
 }
 .join{
 width:100%;
 background:transparent;
-border:1px solid #8b3dff;
+border:1px solid #9147ff
 }
-.rank{
-display:flex;
-justify-content:space-between;
-padding:17px;
-background:#12121f;
-border-bottom:1px solid #292943;
-}
-.rank:first-child{border-radius:14px 14px 0 0}
-.rank:last-child{border-radius:0 0 14px 14px}
-footer{
+
+.bottom{
 position:fixed;
 bottom:0;
-width:100%;
+left:0;
+right:0;
+height:70px;
 background:#11111d;
 border-top:1px solid #292943;
 display:flex;
 justify-content:space-around;
-padding:14px 5px;
-color:#aaa;
+align-items:center;
+z-index:5
 }
-footer div{text-align:center;font-size:13px}
-.active{color:#a44cff}
+.bottom div{
+text-align:center;
+color:#aaa;
+font-size:14px
+}
+.bottom .active{color:#b44cff}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.8);
+z-index:10;
+padding:25px;
+align-items:center;
+justify-content:center
+}
+.form{
+width:100%;
+max-width:430px;
+background:#151522;
+border:1px solid #7137c9;
+border-radius:18px;
+padding:22px
+}
+.form h2{margin-bottom:20px}
+input,select{
+width:100%;
+padding:14px;
+margin-bottom:12px;
+border-radius:9px;
+border:1px solid #38384f;
+background:#090912;
+color:white;
+font-size:16px
+}
+.close{
+background:#29293b;
+margin-top:10px;
+width:100%
+}
 </style>
 </head>
 
@@ -90,49 +129,79 @@ footer div{text-align:center;font-size:13px}
 <div class="hero">
 <h1>Free Fire Tournament</h1>
 <p>Join tournaments, win matches and climb the leaderboard.</p>
-<button onclick="alert('Tournament list opened!')">Explore Tournaments</button>
+<button onclick="openForm()">Explore Tournaments</button>
 </div>
 
-<section>
+<div class="section">
 <h2>🎮 Upcoming Tournaments</h2>
 
-<div class="card">
+<div class="tournament">
 <h3>🔥 Clash Squad Battle</h3>
-<div class="info"><span>Slots: 32/48</span><span>Prize: ৳1000</span></div>
-<button class="join" onclick="join()">Join Tournament</button>
+<div class="info">
+<span>Slots: 32/48</span>
+<span>Prize: ৳1000</span>
+</div>
+<button class="join" onclick="openForm()">Join Tournament</button>
 </div>
 
-<div class="card">
+<div class="tournament">
 <h3>⚡ Daily Battle</h3>
-<div class="info"><span>Slots: 24/48</span><span>Prize: ৳500</span></div>
-<button class="join" onclick="join()">Join Tournament</button>
+<div class="info">
+<span>Slots: 24/48</span>
+<span>Prize: ৳500</span>
+</div>
+<button class="join" onclick="openForm()">Join Tournament</button>
 </div>
 
-<div class="card">
+<div class="tournament">
 <h3>🏆 CS Ranked Championship</h3>
-<div class="info"><span>Slots: 16/32</span><span>Prize: ৳2000</span></div>
-<button class="join" onclick="join()">Join Tournament</button>
+<div class="info">
+<span>Slots: 16/32</span>
+<span>Prize: ৳2000</span>
 </div>
-</section>
+<button class="join" onclick="openForm()">Join Tournament</button>
+</div>
 
-<section>
-<h2>🏆 Leaderboard</h2>
+</div>
 
-<div class="rank"><span>#1 &nbsp; NG-ESPORTS</span><b>120 pts</b></div>
-<div class="rank"><span>#2 &nbsp; BLACK-ROYALS</span><b>95 pts</b></div>
-<div class="rank"><span>#3 &nbsp; AGENT-69</span><b>80 pts</b></div>
-</section>
+<div class="modal" id="modal">
+<div class="form">
+<h2>🔥 Join Tournament</h2>
 
-<footer>
+<input type="text" placeholder="Player Name">
+<input type="text" placeholder="Free Fire UID">
+<input type="tel" placeholder="Phone Number">
+
+<select>
+<option>Select Tournament</option>
+<option>Clash Squad Battle</option>
+<option>Daily Battle</option>
+<option>CS Ranked Championship</option>
+</select>
+
+<button onclick="submitForm()">Submit Registration</button>
+<button class="close" onclick="closeForm()">Close</button>
+
+</div>
+</div>
+
+<div class="bottom">
 <div class="active">🏠<br>Home</div>
 <div>🎮<br>Tournaments</div>
 <div>🏆<br>Leaderboard</div>
 <div>👤<br>Profile</div>
-</footer>
+</div>
 
 <script>
-function join(){
-alert("Tournament join system coming soon!");
+function openForm(){
+document.getElementById("modal").style.display="flex";
+}
+function closeForm(){
+document.getElementById("modal").style.display="none";
+}
+function submitForm(){
+alert("Registration submitted successfully! 🔥");
+closeForm();
 }
 </script>
 
